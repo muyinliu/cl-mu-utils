@@ -74,7 +74,10 @@
    #:chinese-string-p
    #:+chinese-regex+
    #:all-matches-as-strings-select-group
-   #:all-matches-as-strings-select-groups))
+   #:all-matches-as-strings-select-groups
+   ;; condition
+   #:with-retry))
+
 
 (in-package :cl-mu-utils)
 
