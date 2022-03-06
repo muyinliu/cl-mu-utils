@@ -176,6 +176,26 @@ Example:
                             (subseq octets begin)))
                     stream)))
 
+(defun write-form-to-file (form filespec
+                           &key
+                             (external-format :default)
+                             (if-exists :error))
+  (with-open-file (output-stream filespec
+                                 :direction :output
+                                 :external-format external-format
+                                 :if-exists if-exists)
+    (with-standard-io-syntax
+      (print form output-stream))))
+
+(defun read-form-from-file (filespec
+                            &key
+                              (external-format :default))
+  (with-open-file (input-stream
+                   filespec
+                   :external-format external-format)
+    (with-standard-io-syntax
+      (read input-stream))))
+
 (defun merge-files (filespec input-filespec-list &key (external-format :default))
   (with-open-file (output-stream filespec
                                  :direction :output

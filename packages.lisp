@@ -27,6 +27,8 @@
    #:file-octets
    #:write-string-to-file
    #:write-octets-to-file
+   #:write-form-to-file
+   #:read-form-from-file
    #:merge-files
    #:print-file-tree
    #:file-line-filter
