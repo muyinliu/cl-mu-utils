@@ -327,13 +327,20 @@ Example:
         (delete-file src-filespec)))
     dst-filespec))
 
-(defun flatten-directory (dst-directory src-directory-list)
+(defun flatten-directory (dst-directory
+                          src-directory-list
+                          &key (dry-run-p nil))
   "Flatten all files from src directories to dst directory"
   (dolist (src-directory src-directory-list)
     (fad:walk-directory
      src-directory
      (lambda (pathname)
        (unless (fad:directory-pathname-p pathname)
-         (let ((filename (file-namestring pathname)))
-           (move-file pathname
-                      (merge-pathnames filename dst-directory))))))))
+         (let* ((filename (file-namestring pathname))
+                (target-pathname (merge-pathnames filename dst-directory)))
+           (if dry-run-p
+               (format t "mv ~S ~S~%"
+                       filename
+                       target-pathname)
+               (move-file pathname
+                          target-pathname))))))))
