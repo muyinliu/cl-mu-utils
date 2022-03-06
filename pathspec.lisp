@@ -277,7 +277,10 @@ Example:
                  result))))
 
 (defun replace-directory (directory regex replacement
-                          &key filename-filter-regex (external-format :default))
+                          &key
+                            filename-filter-regex
+                            (external-format :default))
+  "Replace matched string with replacement in all files of specific directory"
   (let (result)
     (fad:walk-directory
      directory
@@ -285,9 +288,9 @@ Example:
        (let ((filename (file-namestring pathname)))
          (when (or (not filename-filter-regex)
                    (ppcre:all-matches filename-filter-regex filename))
-           (as-> (file-string pathname :external-format external-format) x
-                 (ppcre:regex-replace-all regex x replacement)
-                 (write-string-to-file pathname x
+           (as-> (file-string pathname :external-format external-format) file-string
+                 (ppcre:regex-replace-all regex file-string replacement)
+                 (write-string-to-file pathname file-string
                                        :external-format external-format
                                        :if-exists :supersede))
            (push pathname result)))))
