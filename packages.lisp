@@ -34,6 +34,8 @@
    #:file-line-filter
    #:search-directory
    #:replace-directory
+   #:move-file
+   #:flatten-directory
    ;; sequence
    #:safe-subseq
    #:groups

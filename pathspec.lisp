@@ -315,4 +315,25 @@ Example:
                                        :if-exists :supersede))
            (push pathname result)))))
     result))
-                            
+
+(defun move-file (src-filespec dst-filespec)
+  "Like command mv of Unix-like OS but only for moving files"
+  (when (fad:file-exists-p src-filespec)
+    (handler-case
+        (rename-file src-filespec dst-filespec)
+      (file-error (condition)
+        (declare (ignore condition))
+        (fad:copy-file src-filespec dst-filespec)
+        (delete-file src-filespec)))
+    dst-filespec))
+
+(defun flatten-directory (dst-directory src-directory-list)
+  "Flatten all files from src directories to dst directory"
+  (dolist (src-directory src-directory-list)
+    (fad:walk-directory
+     src-directory
+     (lambda (pathname)
+       (unless (fad:directory-pathname-p pathname)
+         (let ((filename (file-namestring pathname)))
+           (move-file pathname
+                      (merge-pathnames filename dst-directory))))))))
