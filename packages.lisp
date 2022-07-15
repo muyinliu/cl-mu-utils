@@ -42,6 +42,7 @@
    #:vector->hex-string
    #:random-nth
    #:random-nths
+   #:find-duplicates
    ;; bit
    #:string-getbit
    ;; number

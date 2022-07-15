@@ -41,3 +41,15 @@
   (let ((length (or length (length sequence))))
     (loop for i from 1 to count
        collect (nth (random length) sequence))))
+
+(defun find-duplicates (sequence &key (test #'eq))
+  (loop
+    with sub-sequence = sequence
+    when (member (first sub-sequence)
+                 (rest sub-sequence)
+                 :test test)
+      collect (first sub-sequence)
+    do (if (rest sub-sequence)
+           (setf sub-sequence
+                 (rest sub-sequence))
+           (loop-finish))))
