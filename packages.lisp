@@ -82,6 +82,7 @@
    #:+chinese-regex+
    #:all-matches-as-strings-select-group
    #:all-matches-as-strings-select-groups
+   #:split-string
    ;; condition
    #:with-retry))
 

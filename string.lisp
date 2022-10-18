@@ -117,3 +117,22 @@
                            for group in groups
                            collect (nth (1- group) group-symbols)))))
                (ppcre:all-matches-as-strings regex ,target-string)))))
+
+(defun split-string (max-length string)
+  "Split string into list of string with max-length"
+  (assert (stringp string))
+  (assert (and (integerp max-length)
+               (> max-length 0)))
+  (let ((length (length string)))
+    (if (> length 0)
+        (loop
+          with begin = 0
+          with end = (+ begin max-length)
+          collect (let ((sub-string (safe-subseq string begin end)))
+                    (if sub-string
+                        (progn
+                          (incf begin max-length)
+                          (incf end max-length)
+                          sub-string)
+                        (loop-finish))))
+        '(""))))
