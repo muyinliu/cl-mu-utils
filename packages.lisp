@@ -43,6 +43,8 @@
    #:random-nth
    #:random-nths
    #:find-duplicates
+   ;; alist
+   #:merge-alist-list
    ;; bit
    #:string-getbit
    ;; number

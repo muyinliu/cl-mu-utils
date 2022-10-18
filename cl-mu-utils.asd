@@ -14,6 +14,7 @@
                (:file "expand" :depends-on ("packages"))
                (:file "pathspec" :depends-on ("packages" "expand"))
                (:file "sequence" :depends-on ("packages"))
+               (:file "alist" :depends-on ("packages"))
                (:file "number" :depends-on ("packages"))
                (:file "math" :depends-on ("packages"))
                (:file "character" :depends-on ("packages"))
