@@ -39,6 +39,7 @@
    ;; sequence
    #:safe-subseq
    #:groups
+   #:group-by
    #:vector->hex-string
    #:random-nth
    #:random-nths

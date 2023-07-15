@@ -23,6 +23,24 @@
             (incf index))
        finally (return (rutils:hash-table-vals hash-table)))))
 
+(defun group-by (sequence key
+                 &key
+                   (test #'equal))
+  "Group sequence by result of calling key function of element,
+  return type: alist."
+  (let ((hash-table (make-hash-table :test test)))
+    (loop
+      for element in sequence
+      do (let* ((value (funcall key element))
+                (existing-elements (gethash value hash-table)))
+           (if existing-elements
+               (setf (gethash value hash-table)
+                     (append existing-elements
+                             (list element)))
+               (setf (gethash value hash-table)
+                     (list element))))
+      finally (return (rutils:hash-table-to-alist hash-table)))))
+
 (defun vector->hex-string (vector)
   "Convert hash vector to hex string.
   Example:
