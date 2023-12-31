@@ -31,3 +31,31 @@
                         (append result
                                 (list (cons key value-list)))))))
     finally (return result)))
+
+(defun alist->alist-with-percent-and-accumulate-percent (alist)
+  (let ((sum (loop
+               for (key . value) in alist
+               sum value)))
+    (loop
+      with accumulate-value = 0
+      for (key . value) in alist
+      collect (progn
+                (incf accumulate-value value)
+                (cons key (list value
+                                (format nil "~,2F%" (float (/ (* 100 value) sum)))
+                                (format nil "~,2F%" (float (/ (* 100 accumulate-value) sum)))))))))
+
+(defun list->item->count-alist (list
+                                &key
+                                  (test #'eq)
+                                  (sort-predicate #'>))
+  (loop
+    with item->count = (make-hash-table :test test)
+    for item in list
+    do (if (gethash item item->count)
+           (incf (gethash item item->count))
+           (setf (gethash item item->count)
+                 1))
+    finally (return (sort (rutils:hash-table-to-alist item->count)
+                          sort-predicate
+                          :key #'rest))))

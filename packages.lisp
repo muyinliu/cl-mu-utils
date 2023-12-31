@@ -46,6 +46,8 @@
    #:find-duplicates
    ;; alist
    #:merge-alist-list
+   #:list->item->count-alist
+   #:alist->alist-with-percent-and-accumulate-percent
    ;; bit
    #:string-getbit
    ;; number
