@@ -71,3 +71,17 @@
            (setf sub-sequence
                  (rest sub-sequence))
            (loop-finish))))
+
+(defun find-missing-elements-range (sequence
+                                    &key
+                                      (next #'1+)
+                                      (prev #'1-)
+                                      (test #'eq))
+  (loop
+    for prev-element in sequence
+    and element in (rest sequence)
+    unless (funcall test
+                    (funcall next prev-element)
+                    element)
+      collect (cons (funcall next prev-element)
+                    (funcall prev element))))

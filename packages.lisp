@@ -44,6 +44,7 @@
    #:random-nth
    #:random-nths
    #:find-duplicates
+   #:find-missing-elements-range
    ;; alist
    #:merge-alist-list
    #:list->item->count-alist
