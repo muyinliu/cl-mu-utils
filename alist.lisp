@@ -47,7 +47,7 @@
 
 (defun list->item->count-alist (list
                                 &key
-                                  (test #'eq)
+                                  (test #'equal)
                                   (sort-predicate #'>))
   (loop
     with item->count = (make-hash-table :test test)
